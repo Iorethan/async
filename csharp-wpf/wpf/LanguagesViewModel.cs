@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Dynamic;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using async;
@@ -19,16 +17,16 @@ namespace wpf
             set
             {
                 _languages = value;
-                OnPropertyChanged("Languages");
+                OnPropertyChanged();
             } }
-        private bool _ongoingDownload = false;
+        private bool _ongoingDownload;
         public bool CanDownload
         {
             get { return !_ongoingDownload; }
             set
             {
                 _ongoingDownload = !value;
-                OnPropertyChanged("CanDownload");
+                OnPropertyChanged();
             }
         }
         public ICommand LoadData { get; set; }
@@ -54,12 +52,11 @@ namespace wpf
         {
             var dowloader = new AsynchronousDowloader();
             var json = await dowloader.Get("http://private-9d572-asynchronoustasks.apiary-mock.com/basic");
-            var langueges = new Parser().Parse(json).Languages;
-            Thread.Sleep(2000); // simulates noticable delay
+            var languages = new Parser().Parse(json).Languages;
             Languages.Clear();
-            foreach (var languege in langueges)
+            foreach (var language in languages)
             {
-                Languages.Add(languege);
+                Languages.Add(language);
             }
             CanDownload = true;
         }
