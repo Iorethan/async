@@ -2,6 +2,6 @@
 
 Authors
 
-	Onřej Valeš: C#-WPF
+	Onřej Valeš: C#-WPF, JavaScript-web
 	
 	Jan Stárek: iOS-watchkit
