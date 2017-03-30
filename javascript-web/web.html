@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>
+			JavaScript-Web
+		</title>
+
+		<meta charset="UTF-8"/>
+		<meta http-equiv="Content-Type" content="text/html"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<style type="text/css">
+			button
+			{
+				width: 200px;
+				font-size: 20px;
+			}
+			#supportedLanguages
+			{
+				width: 190px;
+				margin-top: 10px;
+				padding: 5px;
+				border: 1px solid black;
+				border-radius: 4px;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+	<div>
+		<button id="getButton" type="button" onclick="getDownloadData()">Get request</button>
+	</div>
+	<div>
+		<button id="postButton" type="button" onclick="postDownloadData()">Post request</button>
+	</div>		
+	<div id="supportedLanguages">
+		Supported languages
+	</div>
+
+	<script type="text/javascript">
+
+	function createRequestObject()
+	{
+		var httpRequest;
+		if (window.XMLHttpRequest)
+		{
+			httpRequest = new XMLHttpRequest();
+		}
+		else
+		{
+			httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return httpRequest;
+	}
+
+	function formatText(text)
+	{		
+		var formatedText = "";				
+		var responseText = JSON.parse(text);
+		for (var i = 0; i < responseText.supported.length; i++)
+		{
+			formatedText += responseText.supported[i] + "<br/>";
+		}
+		return formatedText;
+	}
+
+	function getDownloadData()
+	{
+		var httpRequest = createRequestObject();
+		httpRequest.open("GET", "http://private-9d572-asynchronoustasks.apiary-mock.com/basic", true);
+		httpRequest.setRequestHeader("Content-Type", "application/json");
+
+		httpRequest.onreadystatechange = function()
+		{
+			if ((httpRequest.readyState === 4) && (httpRequest.status === 200))
+			{
+				document.getElementById("supportedLanguages").innerHTML = formatText(httpRequest.responseText);
+			}
+		}
+		httpRequest.send(null);
+	}
+
+	function postDownloadData()
+	{
+		var httpRequest = createRequestObject();
+		httpRequest.open("POST", "https://private-9d572-asynchronoustasks.apiary-mock.com/basic", true);
+		httpRequest.setRequestHeader("Content-Type", "application/json");
+
+		httpRequest.onreadystatechange = function ()
+		{
+			if ((httpRequest.readyState === 4) && (httpRequest.status === 200))
+			{
+				document.getElementById("supportedLanguages").innerHTML = formatText(httpRequest.responseText);
+			}
+		}
+
+		var body =
+		{
+			"_session": "demo",
+			"credentials":
+			{
+				"username": "demo",
+				"password": "demo"
+			}
+		};
+
+		httpRequest.send(JSON.stringify(body));
+	}
+	</script>
+</html>
