@@ -4,4 +4,4 @@ Authors
 
 	Onřej Valeš: C#-WPF, JavaScript-web, Go-cli
 	
-	Jan Stárek: iOS-watchkit
+	Jan Stárek: iOS-watchkit, python-kivy
