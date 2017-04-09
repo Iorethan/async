@@ -1,0 +1,13 @@
+<AsyncScreen>:
+    BoxLayout:
+        size: root.size
+        orientation: 'vertical'
+        Label:
+            text: root.languages
+        BoxLayout:
+            Button:
+                text: "Get languages (GET)"
+                on_release: root.get_button_handler()
+            Button:
+                text: "Get languages (POST)"
+                on_release: root.post_button_handler()
